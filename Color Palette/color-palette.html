@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Taleemabad Color Palette</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', sans-serif; background: #f5f5f5; padding: 40px; }
+    h1 { font-size: 24px; color: #333; margin-bottom: 8px; }
+    p.sub { color: #888; font-size: 14px; margin-bottom: 40px; }
+
+    .section { margin-bottom: 40px; }
+    .section h2 { font-size: 13px; font-weight: 600; text-transform: uppercase;
+                  letter-spacing: 1px; color: #888; margin-bottom: 16px; }
+
+    .swatches { display: flex; flex-wrap: wrap; gap: 16px; }
+
+    .swatch {
+      width: 140px;
+    }
+    .swatch-color {
+      width: 140px;
+      height: 90px;
+      border-radius: 12px;
+      margin-bottom: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .swatch-name { font-size: 13px; font-weight: 600; color: #333; }
+    .swatch-hex  { font-size: 12px; color: #888; font-family: monospace; margin-top: 2px; }
+    .swatch-rgb  { font-size: 11px; color: #aaa; font-family: monospace; }
+
+    .copy-btn {
+      margin-top: 6px;
+      font-size: 11px;
+      padding: 3px 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      background: white;
+      cursor: pointer;
+      color: #555;
+    }
+    .copy-btn:hover { background: #eee; }
+  </style>
+</head>
+<body>
+
+<h1>Taleemabad Color Palette</h1>
+<p class="sub">Brand colors extracted from design assets</p>
+
+<!-- PRIMARY -->
+<div class="section">
+  <h2>Primary Brand</h2>
+  <div class="swatches">
+
+    <div class="swatch">
+      <div class="swatch-color" style="background:#3c5aa5"></div>
+      <div class="swatch-name">Brand Blue</div>
+      <div class="swatch-hex">#3C5AA5</div>
+      <div class="swatch-rgb">rgb(60, 90, 165)</div>
+      <button class="copy-btn" onclick="copy('#3C5AA5')">Copy</button>
+    </div>
+
+    <div class="swatch">
+      <div class="swatch-color" style="background:#3cb45a"></div>
+      <div class="swatch-name">Brand Green</div>
+      <div class="swatch-hex">#3CB45A</div>
+      <div class="swatch-rgb">rgb(60, 180, 90)</div>
+      <button class="copy-btn" onclick="copy('#3CB45A')">Copy</button>
+    </div>
+
+    <div class="swatch">
+      <div class="swatch-color" style="background:#2d5ab4"></div>
+      <div class="swatch-name">Deep Blue</div>
+      <div class="swatch-hex">#2D5AB4</div>
+      <div class="swatch-rgb">rgb(45, 90, 180)</div>
+      <button class="copy-btn" onclick="copy('#2D5AB4')">Copy</button>
+    </div>
+
+    <div class="swatch">
+      <div class="swatch-color" style="background:#0fb45a"></div>
+      <div class="swatch-name">Vivid Green</div>
+      <div class="swatch-hex">#0FB45A</div>
+      <div class="swatch-rgb">rgb(15, 180, 90)</div>
+      <button class="copy-btn" onclick="copy('#0FB45A')">Copy</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ACCENT -->
+<div class="section">
+  <h2>Accent Colors</h2>
+  <div class="swatches">
+
+    <div class="swatch">
+      <div class="swatch-color" style="background:#f0d200"></div>
+      <div class="swatch-name">Brand Yellow</div>
+      <div class="swatch-hex">#F0D200</div>
+      <div class="swatch-rgb">rgb(240, 210, 0)</div>
+      <button class="copy-btn" onclick="copy('#F0D200')">Copy</button>
+    </div>
+
+    <div class="swatch">
+      <div class="swatch-color" style="background:#e1963c"></div>
+      <div class="swatch-name">Orange</div>
+      <div class="swatch-hex">#E1963C</div>
+      <div class="swatch-rgb">rgb(225, 150, 60)</div>
+      <button class="copy-btn" onclick="copy('#E1963C')">Copy</button>
+    </div>
+
+    <div class="swatch">
+      <div class="swatch-color" style="background:#874b96"></div>
+      <div class="swatch-name">Purple</div>
+      <div class="swatch-hex">#874B96</div>
+      <div class="swatch-rgb">rgb(135, 75, 150)</div>
+      <button class="copy-btn" onclick="copy('#874B96')">Copy</button>
+    </div>
+
+    <div class="swatch">
+      <div class="swatch-color" style="background:#4b2d5a"></div>
+      <div class="swatch-name">Dark Purple</div>
+      <div class="swatch-hex">#4B2D5A</div>
+      <div class="swatch-rgb">rgb(75, 45, 90)</div>
+      <button class="copy-btn" onclick="copy('#4B2D5A')">Copy</button>
+    </div>
+
+    <div class="swatch">
+      <div class="swatch-color" style="background:#69e169"></div>
+      <div class="swatch-name">Light Green</div>
+      <div class="swatch-hex">#69E169</div>
+      <div class="swatch-rgb">rgb(105, 225, 105)</div>
+      <button class="copy-btn" onclick="copy('#69E169')">Copy</button>
+    </div>
+
+    <div class="swatch">
+      <div class="swatch-color" style="background:#b4e1f0"></div>
+      <div class="swatch-name">Light Blue</div>
+      <div class="swatch-hex">#B4E1F0</div>
+      <div class="swatch-rgb">rgb(180, 225, 240)</div>
+      <button class="copy-btn" onclick="copy('#B4E1F0')">Copy</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- NEUTRALS -->
+<div class="section">
+  <h2>Neutrals</h2>
+  <div class="swatches">
+
+    <div class="swatch">
+      <div class="swatch-color" style="background:#ffffff; border: 1px solid #eee"></div>
+      <div class="swatch-name">White</div>
+      <div class="swatch-hex">#FFFFFF</div>
+      <div class="swatch-rgb">rgb(255, 255, 255)</div>
+      <button class="copy-btn" onclick="copy('#FFFFFF')">Copy</button>
+    </div>
+
+    <div class="swatch">
+      <div class="swatch-color" style="background:#c3d2e1"></div>
+      <div class="swatch-name">Light Gray Blue</div>
+      <div class="swatch-hex">#C3D2E1</div>
+      <div class="swatch-rgb">rgb(195, 210, 225)</div>
+      <button class="copy-btn" onclick="copy('#C3D2E1')">Copy</button>
+    </div>
+
+    <div class="swatch">
+      <div class="swatch-color" style="background:#333333"></div>
+      <div class="swatch-name">Dark Text</div>
+      <div class="swatch-hex">#333333</div>
+      <div class="swatch-rgb">rgb(51, 51, 51)</div>
+      <button class="copy-btn" onclick="copy('#333333')">Copy</button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  function copy(hex) {
+    navigator.clipboard.writeText(hex).then(() => {
+      event.target.textContent = 'Copied!';
+      setTimeout(() => event.target.textContent = 'Copy', 1200);
+    });
+  }
+</script>
+
+</body>
+</html>

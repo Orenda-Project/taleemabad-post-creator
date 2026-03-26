@@ -1,0 +1,21 @@
+{
+  "primary": {
+    "brand-blue":   "#3C5AA5",
+    "deep-blue":    "#2D5AB4",
+    "brand-green":  "#3CB45A",
+    "vivid-green":  "#0FB45A"
+  },
+  "accent": {
+    "yellow":       "#F0D200",
+    "orange":       "#E1963C",
+    "purple":       "#874B96",
+    "dark-purple":  "#4B2D5A",
+    "light-green":  "#69E169",
+    "light-blue":   "#B4E1F0"
+  },
+  "neutrals": {
+    "white":        "#FFFFFF",
+    "gray-blue":    "#C3D2E1",
+    "dark-text":    "#333333"
+  }
+}

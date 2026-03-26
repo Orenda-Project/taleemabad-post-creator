@@ -1,0 +1,22 @@
+# Generated post images
+Posts/*.png
+Posts/full_canvas.png
+Posts/scene.json
+Posts/post_config.json
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Excalidraw server logs
+excalidraw.log
+
+# IDE / OS
+.DS_Store
+*.swp
+*.swo
+Thumbs.db
+
+# VS Code AI rules (internal only)
+.github/instructions/codacy.instructions.md

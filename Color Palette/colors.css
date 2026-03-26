@@ -1,0 +1,22 @@
+/* Taleemabad Brand Colors */
+
+:root {
+  /* Primary */
+  --color-brand-blue:    #3C5AA5;
+  --color-deep-blue:     #2D5AB4;
+  --color-brand-green:   #3CB45A;
+  --color-vivid-green:   #0FB45A;
+
+  /* Accent */
+  --color-yellow:        #F0D200;
+  --color-orange:        #E1963C;
+  --color-purple:        #874B96;
+  --color-dark-purple:   #4B2D5A;
+  --color-light-green:   #69E169;
+  --color-light-blue:    #B4E1F0;
+
+  /* Neutrals */
+  --color-white:         #FFFFFF;
+  --color-gray-blue:     #C3D2E1;
+  --color-dark-text:     #333333;
+}
