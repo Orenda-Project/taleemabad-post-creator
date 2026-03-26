@@ -35,7 +35,7 @@ All files saved to `Posts/` with 144 DPI metadata.
 ## Step 1 — Clone the Repository
 
 ```bash
-git clone https://github.com/Orenda-Project/taleemabad-work.git
+git clone https://github.com/Orenda-Project/taleemabad-post-creator.git
 cd taleemabad-work
 ```
 
