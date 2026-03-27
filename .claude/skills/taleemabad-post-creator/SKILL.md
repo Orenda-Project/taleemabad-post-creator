@@ -3,18 +3,21 @@ name: taleemabad-post-creator
 description: >
   Create branded social media posts for Taleemabad — high-DPI 2x resolution output:
   LinkedIn 2400×1256, Instagram 2160×2160, X/Twitter 2400×1350 (sharp on all screens).
-  Uses the brand asset library and Excalidraw. Use this skill whenever the user asks
+  Uses UI UX Pro Max design intelligence + Excalidraw. Use this skill whenever the user asks
   to create, design, generate, or update a social media post, graphic, banner, or
   visual — even if they just describe the topic without saying "post" or "design".
-  The skill handles asset selection, layout choice, all three platform sizes,
+  The skill handles design system generation, layout composition, all three platform sizes,
   Excalidraw canvas composition, and saving final PNG files to the Posts/ folder.
 ---
 
-# Taleemabad Social Post Creator
+# Taleemabad Social Post Creator (UI UX Pro Max Edition)
 
 This skill turns a plain description into three polished, on-brand social media
-post images (LinkedIn, Instagram, X/Twitter) using the project's asset library
-and the Excalidraw MCP.
+post images (LinkedIn, Instagram, X/Twitter) using **UI UX Pro Max design intelligence**
+and the Excalidraw MCP. Assets from the library are **optional** — the design is driven
+by generated visual styles, gradients, shapes, and typography, not fixed templates.
+
+---
 
 ## Prerequisites
 
@@ -26,183 +29,159 @@ Before starting, verify:
    ```
    and open `http://localhost:3000` in a browser.
 
-2. **Assets folder exists** — check for `{project_root}/Assets/`. The project root
-   is the directory containing the `Assets/` folder and `README.md`.
+2. **Python is available** — needed for UI UX Pro Max search and crop scripts.
+   ```bash
+   python3 --version
+   ```
+
+3. **Assets folder** — check for `{project_root}/Assets/` (logos live here). Only logos
+   are required; decorative assets are now optional.
 
 ---
 
 ## Step 1 — Understand the Post
 
-Ask the user (or infer from their message) these things:
+Infer from the user's message or ask:
 
 | Question | Why it matters |
 |----------|----------------|
-| **What is the post about?** | Drives headline, template, asset selection |
-| **Tone?** (celebratory / educational / urgent / warm) | Drives color theme |
+| **What is the post about?** | Topic drives the design system generation |
+| **Tone?** (celebratory / educational / urgent / warm / professional) | Drives style selection |
 | **Any specific text?** | Headline and optional body copy |
-| **Any specific assets to include?** | User may have preferences |
+| **Visual direction preference?** | e.g. "modern", "bold", "clean", "vibrant" — optional |
 | **Output folder?** | Default is `{project_root}/Posts/` |
 
 If the user's message already answers these, don't ask — just proceed.
 
 ---
 
-## Step 2 — Choose Template, Assets & Design Direction
+## Step 2 — Generate Design System with UI UX Pro Max
 
-Read `references/assets-catalog.md` to understand the full asset library.
-Read `references/post-templates.md` for layout options, color themes, and **design principles**.
+**This replaces the old fixed template table.** Use UI UX Pro Max to generate a complete
+design system tailored to the post topic and tone.
 
-### Template selection guide
-| Post type | Template | Background |
-|-----------|----------|------------|
-| Welcome, brand, "hello world" | **A — Centered** | Brand blue `#3C5AA5` |
-| Tip, fact, quote, educational | **B — Left-heavy** | Brand green `#3CB45A` |
-| Launch, event, big news | **A — Centered** (bold) | Yellow `#F0D200` + text `#333333` |
-| App download, product promo | **A — Centered** | Brand blue `#3C5AA5` |
-| Motivational | **A — Centered** | Deep blue `#2D5AB4` |
-
-### Design principles (apply to every post)
-
-**1. Choose one hero element and make it BOLD**
-Every post needs one focal point. For Template B (educational), this is always the large
-3D letter or icon. Use `placement: "bleed-right"` with `size_scale: 1.2–1.4` so it
-extends beyond the post edge — this looks editorial and confident, not clip-art.
-
-**2. Always use bg_overlay for depth**
-A flat solid background looks cheap. Every post should include:
-```json
-"bg_overlay": {"color": "#000000", "opacity": 14}
-```
-This adds subtle richness to any background color. Increase to 18–20% for deeper effect.
-
-**3. Use 3 decorative elements max — not 4–6**
-3 elements chosen with intention > 6 elements placed by default.
-The formula: 1 hero (bleed-right) + 1 top accent + 1 bottom accent.
-Leave at least 2 corners completely empty — that breathing room reads as intentional design.
-
-**4. Add rotation to every decorative element**
-Static axis-aligned elements look placed, not designed. Give each element a slight rotation:
-```json
-{"file": "star-yellow-3d.png", "placement": "top-left", "rotation": -0.35, "size_scale": 1.1}
-```
-Mix directions (positive = clockwise, negative = counter-clockwise).
-
-**5. Body text color: soft, not pure white**
-On green backgrounds: `#D4F0DC` (soft light green) reads better than `#FFFFFF`.
-On blue backgrounds: `#B4D4F0` (soft light blue). Pure white only for headlines.
-
-### Asset selection
-Pick assets that match the post's **energy and topic**:
-- Celebrations → stars, sparkles, plus shapes
-- Education → letter assets, student icon
-- Urgency / launch → orange/purple triangles, diamond shapes
-- App / product → tablet mockup, download button, app icon
-- Multilingual → Urdu letter assets (`urdu-letter-dal-3d-yellow.png`, `urdu-letter-ze-3d-green.png`)
-
----
-
-## Step 3 — Build the Scene Config
-
-Create a `post_config.json` in the project's `Posts/` folder (create it if it doesn't exist).
-
-**Centered post example (brand/welcome):**
-```json
-{
-  "template": "centered",
-  "headline": "Welcome to",
-  "body_text": "",
-  "bg_color": "#3C5AA5",
-  "bg_overlay": {"color": "#000000", "opacity": 14},
-  "text_color": "#FFFFFF",
-  "assets_dir": "/absolute/path/to/Assets",
-  "logo": "Green BG@4x.png",
-  "tagline_image": "text-lets-fuel-learning.png",
-  "decorative": [
-    {"file": "blob-3d-light-blue.png",      "placement": "bleed-right",   "size_scale": 1.3, "rotation": 0.2},
-    {"file": "sparkle-stars-3d-yellow.png", "placement": "top-left",      "size_scale": 1.1, "rotation": -0.35},
-    {"file": "plus-3d-blue.png",            "placement": "corner-bl",     "size_scale": 0.9, "rotation": 0.5}
-  ]
-}
-```
-
-**Educational/tip post example (left-heavy):**
-```json
-{
-  "template": "left_heavy",
-  "headline": "Learn Urdu\nFaster!",
-  "body_text": "Read stories aloud daily —\nbuilds vocabulary & confidence!",
-  "bg_color": "#3CB45A",
-  "bg_overlay": {"color": "#000000", "opacity": 16},
-  "text_color": "#FFFFFF",
-  "assets_dir": "/absolute/path/to/Assets",
-  "logo": "taleemabad-logo-v3.png",
-  "decorative": [
-    {"file": "urdu-letter-dal-3d-yellow.png", "placement": "bleed-right",  "size_scale": 1.3, "rotation": 0.15},
-    {"file": "star-yellow-3d.png",            "placement": "top-left",     "size_scale": 1.1, "rotation": -0.4},
-    {"file": "plus-3d-yellow.png",            "placement": "corner-bl",    "size_scale": 0.8, "rotation": 0.6}
-  ]
-}
-```
-
-**Placement options:**
-| Placement | Description |
-|-----------|-------------|
-| `top-left` / `top-right` | Bleed outside top corners |
-| `bottom-left` / `bottom-right` | Bleed outside bottom corners |
-| `corner-tr` / `corner-bl` | Small accent inside corners |
-| `center-right` | Hero graphic, right half, contained inside post |
-| `bleed-right` | **OVERSIZED hero**, right side, extends beyond post edge — dramatic |
-| `bleed-bottom` | Large element bleeding off the bottom |
-
-**Per-element options:**
-- `"rotation"`: radians — `0.2` to `0.5` (slight tilt), `-0.4` (counter-clockwise). Mix +/−.
-- `"size_scale"`: `1.0`=default, `1.2–1.5`=hero, `0.8`=small accent
-
----
-
-## Step 4 — Generate the Scene
-
-Run the build script:
-
+### Run the design system generator:
 ```bash
-python {skill_dir}/scripts/build_scene.py \
-  --config {posts_dir}/post_config.json \
-  --output {posts_dir}/scene.json
+python3 .claude/skills/ui-ux-pro-max/scripts/search.py "{topic} {tone} social media post" \
+  --design-system -p "Taleemabad" -f markdown
 ```
 
-Where `{skill_dir}` is the directory containing this SKILL.md.
+Example for an educational post:
+```bash
+python3 .claude/skills/ui-ux-pro-max/scripts/search.py "educational EdTech learning Pakistan social media" \
+  --design-system -p "Taleemabad" -f markdown
+```
 
-Then import into Excalidraw:
+### From the output, extract and adapt:
+| UI UX Pro Max Output | How to use for Taleemabad posts |
+|----------------------|----------------------------------|
+| **Style** | Use as the visual treatment (glassmorphism, bento, bold, claymorphism, etc.) |
+| **Colors** | Use as accent/gradient — but keep Taleemabad blue `#3C5AA5` or green `#3CB45A` as primary |
+| **Typography mood** | Drives font weight and layout hierarchy in Excalidraw text elements |
+| **Key Effects** | Apply as Excalidraw element styling (shadows, gradients, rounded corners) |
+| **Pattern** | Use as layout guide (hero-centric, left-heavy, bento grid, etc.) |
+| **Anti-patterns** | Avoid these in the design |
+
+### Taleemabad brand anchors (always keep these):
+- **Primary colors**: Blue `#3C5AA5`, Green `#3CB45A`, Yellow `#F0D200`
+- **Logo**: Always include — choose from Assets/ based on background
+- **Website**: `taleemabad.com` watermark on every post
+- **Accent colors**: Take from UI UX Pro Max recommendations
+
+---
+
+## Step 3 — Design the Layout in Excalidraw (No Script Required)
+
+Instead of running `build_scene.py`, **build the post directly in Excalidraw** using
+the MCP tools. This gives full creative freedom to apply any visual style from UI UX Pro Max.
+
+### Canvas setup — place 3 posts side by side:
+
+Use these base dimensions (1x, Excalidraw units — the export script will handle 2x):
+
+| Platform | Width | Height | Canvas X position |
+|----------|-------|--------|-------------------|
+| LinkedIn | 1200  | 628    | 0                 |
+| Instagram| 1080  | 1080   | 1300              |
+| X/Twitter| 1200  | 675    | 2500              |
+
+### Build each post using mcp__excalidraw__batch_create_elements:
+
+**1. Background rectangle** (always first):
+```json
+{
+  "type": "rectangle",
+  "x": 0, "y": 0,
+  "width": 1200, "height": 628,
+  "backgroundColor": "#3C5AA5",
+  "strokeColor": "transparent",
+  "fillStyle": "solid",
+  "roughness": 0,
+  "roundness": null
+}
+```
+
+For gradient-style backgrounds (glassmorphism, aurora, etc.), layer 2-3 rectangles
+with different colors and low opacity (use `opacity: 30-60`) to simulate gradient depth.
+
+**2. Apply the UI UX Pro Max style as visual elements:**
+
+- **Glassmorphism** → frosted rectangle overlays (`opacity: 20-40`, white stroke)
+- **Bold/Neubrutalism** → thick border rectangles, hard shadows offset by 4-6px
+- **Bento Grid** → subdivide the post into card sections with rounded rectangles
+- **Claymorphism** → large rounded shapes (`roundness` high) with soft shadows
+- **Minimalism** → heavy typography, lots of whitespace, 1-2 accent shapes only
+- **Aurora/Vibrant** → overlapping ellipses with soft colors at low opacity as background layer
+
+**3. Decorative shapes (generated, not from Assets/):**
+Use Excalidraw native shapes — ellipses, diamonds, stars — instead of PNG assets.
+Style them using the UI UX Pro Max color palette. Examples:
+```json
+{"type": "ellipse", "backgroundColor": "#F0D200", "opacity": 40, "width": 300, "height": 300}
+{"type": "diamond", "backgroundColor": "#3CB45A", "opacity": 60, "width": 200, "height": 200}
+```
+
+**4. Text elements — hierarchy driven by UI UX Pro Max typography:**
+- Headline: Bold, large (48-72px equivalent), white or high-contrast
+- Body: Regular weight, 24-32px, soft color (not pure white — use `#D4F0DC` on green, `#B4D4F0` on blue)
+- Watermark: `taleemabad.com` — small, bottom corner, 50% opacity
+
+**5. Logo (optional, not mandatory):**
+Only add the logo image if the design needs it. Place it top-left or bottom-left.
+Never centered unless the logo IS the hero of the post.
+
+### Design quality rules (from UI UX Pro Max):
+- **One hero focal point** — everything else supports it
+- **3-level hierarchy**: dominant → secondary → supporting
+- **Breathing room** — leave 20-30% of the canvas empty
+- **Contrast ratio** — text must be 4.5:1 minimum against background
+- **Depth through layers** — stack elements at different opacities
+- **No emoji icons** — use geometric shapes or text only
+- **Consistent corner radius** — pick one value (0, 8, 16, or 30) and use it everywhere
+
+---
+
+## Step 4 — Verify with Screenshot
 
 ```python
-# Via MCP tool:
-mcp__excalidraw__import_scene(filePath="{posts_dir}/scene.json", mode="replace")
+mcp__excalidraw__get_canvas_screenshot()
 ```
 
----
+Check:
+- All 3 posts visible side by side
+- Text is readable and hierarchy is clear
+- Design style is consistent across all 3 sizes
+- Logo and `taleemabad.com` are present
+- Nothing important is cut off at edges
 
-## Step 5 — Verify with Screenshot
-
-Call `mcp__excalidraw__get_canvas_screenshot()` and visually check:
-- All 3 posts are visible side by side
-- Text is readable and centered
-- Logo and tagline are clearly visible
-- Decorative elements are at the edges without covering key content
-- Nothing is cut off
-
-If something looks wrong, adjust `post_config.json` and re-run Step 4.
-
-**Common fixes:**
-- Text cut off → reduce font size or `top_pad` in template
-- Logo too big/small → adjust `logo_w` values in the config or script
-- Decorative element overlaps text → change its `placement` or remove it
+If it doesn't look good — **redesign it**. Adjust colors, shapes, layout. The goal is
+a post the user actually likes, not one that passes a checklist.
 
 ---
 
-## Step 6 — Export & Crop
+## Step 5 — Export & Crop
 
 Export the full canvas:
-
 ```python
 mcp__excalidraw__export_to_image(
     format="png",
@@ -212,7 +191,6 @@ mcp__excalidraw__export_to_image(
 ```
 
 Then crop into individual posts:
-
 ```bash
 python {skill_dir}/scripts/crop_posts.py \
   --input {posts_dir}/full_canvas.png \
@@ -220,20 +198,14 @@ python {skill_dir}/scripts/crop_posts.py \
   --prefix {post-slug}
 ```
 
-This saves **2x high-DPI images** (Retina-ready, sharp on all screens):
-- `{posts_dir}/{post-slug}-linkedin.png` — **2400×1256px** (2× LinkedIn standard)
-- `{posts_dir}/{post-slug}-instagram.png` — **2160×2160px** (2× Instagram standard)
-- `{posts_dir}/{post-slug}-x_twitter.png` — **2400×1350px** (2× X/Twitter standard)
-
-And automatically deletes the temporary `full_canvas.png`.
-
-**Why 2x?** Social media platforms render images on Retina/4K displays. 1x images (1200×628) look blurry on modern phones and monitors. 2x images look sharp everywhere and are accepted by all platforms.
+This saves **2x high-DPI images**:
+- `{posts_dir}/{post-slug}-linkedin.png` — **2400x1256px**
+- `{posts_dir}/{post-slug}-instagram.png` — **2160x2160px**
+- `{posts_dir}/{post-slug}-x_twitter.png` — **2400x1350px**
 
 ---
 
-## Step 7 — Verify Quality & Confirm with User
-
-Run this quality check before showing the user:
+## Step 6 — Quality Check
 
 ```bash
 python3 -c "
@@ -256,45 +228,35 @@ for fname, exp_w, exp_h in specs:
     print(f'[{status}] {fname}: {w}x{h} px, {size_kb} KB')
     if status == 'FAIL':
         ok = False
-        if w != exp_w or h != exp_h:
-            print(f'       Expected {exp_w}x{exp_h}')
-        if size_kb <= 300:
-            print(f'       File too small ({size_kb} KB) — may indicate low quality export')
 sys.exit(0 if ok else 1)
 "
 ```
 
-If any check fails:
-- Wrong dimensions → verify `build_scene.py` SCALE=2 and re-run Steps 4–6
-- File too small → Excalidraw may have exported at low resolution; try re-exporting
-
-Then show a preview of all 3 saved images using the Read tool (renders inline).
-Tell the user:
-- Where the files were saved
-- The exact 2x dimensions of each
-- Any design choices you made (template, colors, assets) and why
+Then show previews of all 3 images using the Read tool and tell the user:
+- Where files were saved
+- What design style was applied (from UI UX Pro Max) and why
+- What colors and effects were used
 
 ---
 
-## Quality Checklist
+## Design Style Quick Reference
 
-Before finishing, verify each post has:
-- [ ] **Resolution**: 2400×1256 (LinkedIn), 2160×2160 (Instagram), 2400×1350 (X/Twitter)
-- [ ] **File size**: Each PNG > 300 KB (indicates sufficient pixel detail)
-- [ ] **DPI**: 144 dpi metadata set (2× standard 72dpi)
-- [ ] Brand colors used correctly (no off-brand colors)
-- [ ] Logo is clearly visible and not pixelated
-- [ ] Headline text is sharp and readable (white on blue/green, dark on yellow)
-- [ ] 4–6 decorative elements adding visual energy without clutter
-- [ ] `taleemabad.com` watermark present
-- [ ] Content doesn't bleed into the post boundary (text/logo safely inside)
-- [ ] Decorative elements only bleed at edges, not over center content
+Use this when the user doesn't specify a direction — pick based on post tone:
+
+| Post Tone | Recommended Style | Background Treatment |
+|-----------|-------------------|----------------------|
+| Educational / Informative | **Bento Grid** or **Minimalism** | Clean blue, card sections |
+| Celebratory / Launch | **Vibrant & Block-based** or **Aurora** | Bold colors, layered shapes |
+| Professional / B2B | **Swiss Modernism** or **Flat Design** | Clean, high contrast |
+| Warm / Community | **Claymorphism** or **Soft UI** | Rounded, pastel accents |
+| Urgent / CTA | **Neubrutalism** | High contrast, thick borders |
+| Premium / Achievement | **Glassmorphism** | Dark base, frosted overlays |
 
 ---
 
 ## Reference Files
 
-- `references/assets-catalog.md` — full asset list with descriptions and use cases
-- `references/post-templates.md` — layout templates, color themes, element formulas, aspect ratios
-- `scripts/build_scene.py` — generates Excalidraw scene JSON from config
-- `scripts/crop_posts.py` — crops the full canvas export into platform-specific PNGs
+- `references/assets-catalog.md` — logos and optional decorative assets (use sparingly)
+- `references/post-templates.md` — legacy templates (reference only, not required)
+- `scripts/crop_posts.py` — crops full canvas export into platform PNGs
+- `.claude/skills/ui-ux-pro-max/scripts/search.py` — design system generator
